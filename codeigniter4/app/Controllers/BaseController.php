@@ -28,7 +28,7 @@ class BaseController extends Controller
     /**
      * An array of helpers to be loaded automatically upon class instantiation.
      */
-    protected $helpers = ['url', 'form', 'text'];
+    protected $helpers = ['url', 'form', 'text', 'site'];
 
     /** Data shared with all views (layout chrome: menu, announcements…). */
     protected array $data = [];
