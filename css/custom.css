@@ -1,0 +1,130 @@
+		/*FOR ERROR DISPLAY*/
+		.error {
+			color: #FB3A3A;
+			display: inline-block;
+			margin: 0px 0 0px 0px;
+			padding: 0;
+			text-align: left;
+		}
+		#colorpicker {
+    text-align: center;
+    float: right;
+    padding: 2px;
+    border: 1px solid #d4d4d4;
+    border-radius: 3px;
+    background: #fff;
+    width: 10%;
+    height: 26px;
+}
+		/*FOR USR MODAL*/
+		.visible1 {
+			visibility:hidden;
+		}
+		.visible {
+			visibility:hidden;
+		}
+		.form-control{
+			border-color: #ccc ! important;
+		}
+		/* Mapping*/
+		.multiselectNew{
+			width:350px;
+			height:120px;
+			border:solid 2px #c0c0c0;
+			overflow:auto;
+			border-radius:5px;
+			
+		}
+
+		.multiselectNew label {
+			display:block;
+			margin:10px;
+			font-weight:normal;
+		}
+
+		.multiselectNew-on {
+			color:#ffffff;
+			background-color:#000099;
+		}
+		.panel-info>.panel-heading {
+			color: #31708f;
+			background-color: #E7E7E7;
+			border-color: #E7E7E7;
+		}
+		.panel-info {
+			border-color: #E7E7E7;
+		}
+		.btn-primary {
+			background-color: #6197df;
+			border-color: #00a0f0;
+		}
+		.icon-question-sign:before{content:"\f059";}
+		
+		/**********BOTTOM MENU***********/
+		#notification {
+    float: left;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    box-shadow: 0px 1px 3px #9a9a9a;
+    -webkit-box-shadow: 0px 1px 3px #9a9a9a;
+    -moz-box-shadow: 0px 1px 3px #9a9a9a;
+	background-color:#E7E7E7;
+	border: 1px solid #7098C9;
+}
+
+#notification ul li {
+    border-bottom: 1px solid #7098C9;
+    padding: 0px 0px;
+}
+#notification ul li:first-child {
+    border-top: 1px solid #7098C9;
+    border-bottom: 1px solid #7098C9;
+	margin-top:-10px;
+}
+#notification ul li a {
+    text-decoration: none;
+    color: #515151;
+    padding-left: 30px;
+    display: block;
+    font-weight: bold;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.inbox {
+    background: #EEF1F8 url(../images/inbox-clr.png) left center no-repeat;
+    z-index: 999;
+}
+.todays-casecri {
+	background: #EEF1F8 url(../images/calendar-clr.png) left center no-repeat;
+    z-index: 999;
+}
+.shutdown {
+	background: #EEF1F8 url(../images/shutdown.png) left 5px center no-repeat;
+	 background-size: 20px 20px; 
+    z-index: 999;
+}
+.chgpassword {
+	background: #EEF1F8 url(../images/change_password.png) left 5px center no-repeat;
+	 background-size: 24px 24px; 
+    z-index: 999;
+}
+
+input:focus { 
+	box-shadow:1px 1px 12px 0px #115fbd ! important;
+}
+select:focus { 
+	box-shadow:1px 1px 12px 0px #115fbd ! important;
+}
+textarea:focus { 
+	box-shadow:1px 1px 12px 0px #115fbd ! important;
+}
+
+
+		
+		
+		
+		
+		

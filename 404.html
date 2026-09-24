@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Under Maintenance</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            font-family: Arial, Helvetica, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: rotate 4s linear infinite;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #dbeafe;
+            margin-bottom: 25px;
+        }
+
+        .loader {
+            width: 70px;
+            height: 70px;
+            border: 6px solid rgba(255,255,255,0.2);
+            border-top: 6px solid #38bdf8;
+            border-radius: 50%;
+            margin: auto;
+            animation: spin 1s linear infinite;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media(max-width: 600px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .icon {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="icon">⚙️</div>
+
+        <h1>Under Maintenance</h1>
+
+        <p>
+            Our website is currently undergoing scheduled maintenance.<br>
+            We’ll be back online shortly.
+        </p>
+
+        <div class="loader"></div>
+
+        <div class="footer">
+            © 2026 All Rights Reserved
+        </div>
+    </div>
+
+</body>
+</html>

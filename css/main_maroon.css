@@ -1,0 +1,125 @@
+/*	
+*	############################################################################################
+*	
+*	KLOROFIL - Free Bootstrap Dashboard Template
+*	---------------------------------------------------------------------
+*
+*	Version: 	2.0
+*	Author: 	The Develovers
+*	Website: 	https://www.themeineed.com/
+*	Copyright: 	Copyright 2016 The Develovers
+*	License: 	Creative Common Attribution 4.0 https://creativecommons.org/licenses/by/4.0/
+*	
+*	############################################################################################
+*/
+/********************
+ * GENERAL STYLES
+ ********************/
+
+
+/********************
+ * LAYOUT
+ ********************/
+#menu-header {
+  background-color: #f9bf79;
+}
+
+.social-container .twitter{color: #ffffff;border-color: #dea056 !important;background-color: #dea056 !important;}
+.social-container .facebook{color: #ffffff;border-color: #dea056 !important;background-color: #dea056 !important;}
+.social-container .googleplus{color: #ffffff;border-color:#dea056 !important;background-color: #dea056 !important;}
+.social-container .pinterest{color: #ffffff;border-color: #dea056 !important;background-color: #dea056 !important;}
+.social-container .codepen{color: #ffffff;border-color:#dea056 !important;background-color: #dea056 !important;}
+.social-container .dribbble{color: #ffffff;border-color: #dea056 !important;background-color:#dea056 !important;}
+.social-container .instagram{color: #ffffff;border-color:#dea056 !important;background-color: #dea056 !important;}
+.social-container .linkedin{color: #ffffff;border-color: #dea056 !important;background-color: #dea056 !important;}
+.social-container .envelope{color: #ffffff;border-color: #dea056 !important;background-color: #dea056 !important;}
+.social-container .recruitment{color: #ffffff;border-color: #dea056 !important;background-color: #dea056 !important;}
+.social-container .ecourts{color: #ffffff;border-color: #dea056 !important;background-color: #dea056 !important;}
+.social-container .sitting{color: #ffffff;border-color: #dea056 !important;background-color: #dea056 !important;}
+.social-container .visitor{color: #ffffff;border-color:#dea056 !important;background-color: #dea056 !important;} 
+ 
+
+#nav-header .nav li a{
+	color:#333;
+}
+
+#nav-header .nav ul {
+    background: #f9bf79 url(img/opacity-10.png) repeat;
+    border-top: 0;
+}
+
+.flex-direction-nav a
+{
+	background:#f9bf79;
+	box-shadow:none;
+}
+
+#flexslider-featured .flex-control-nav li a.flex-active {
+    background: #f9bf79;
+}
+
+.md-tabs{
+  background-color: #f9bf79!important;	
+}
+
+.sidebar-content{
+	border: 1px solid #F9BF79;
+}
+.content{
+	border-top: 1px solid #F9BF79;
+}
+.post-list .post-row{
+	border-bottom: 1px solid #F9BF79;
+}
+
+.widget > h3 > span{
+	background-color: #f9bf79;
+	color:#333;
+}
+	
+.widget > h3 {
+    border-bottom: 2px solid #f9bf79;
+}
+	
+.alx-tabs-nav li a {   
+    border-bottom: 3px solid #f9bf79;
+}	
+		
+#footer {
+    background: #f9bf79;
+}
+#footer-widgets{
+	background: #f9bf79;
+}	
+.dark .widget a{
+	color:#333;
+}
+.dark .widget > h3 > span{
+	background: #dea056;
+}
+.dark .widget > h3 {
+    border-bottom: 2px solid #dea056;
+}
+#nav-footer.nav-container{
+	background: #dea056;	
+}
+#nav-footer .nav li a{
+	color:#333;
+}
+#footer-bottom{
+	background: #f9bf79;
+}
+#footer-bottom #copyright, #footer-bottom #credit{
+	color:#333;
+}
+#footer-bottom a{
+	color: #333;
+    font-weight: 400;
+}
+#footer-bottom .social-links a{
+	color: #333;
+}
+#footer-bottom #back-to-top{
+	background: #dea056;
+}		
+		

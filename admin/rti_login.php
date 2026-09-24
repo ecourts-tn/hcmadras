@@ -1,0 +1,361 @@
+<?Php
+header ("Cache-Control: no-cache, must-revalidate");  
+header ("Pragma: no-cache");
+session_start();
+include 'config/dbconfig.php';
+include 'function/login_fun.php';
+$login =new lOGIN($DB_con);
+include_once('validationfiles/formvalidator.php'); 
+$validator = new FormValidator();
+if($login->is_loggedin()!="")
+{
+ $login->redirect('dashboard.php');
+} 
+
+$length = 32;
+$value=substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $length);
+$options = [
+			'cost' => 11,
+			'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+		];
+		$enctype_token= password_hash($value, PASSWORD_BCRYPT, $options);
+$_SESSION['pageid']=$enctype_token;
+$_SESSION['ses_value']=$value;
+
+
+if($login->is_loggedin()!="")
+{
+ $login->redirect('dashboard.php?CheckString='.$_SESSION['pageid']);
+}  
+
+
+if(isset($_POST['login']))
+{
+	
+//session_gc();
+session_regenerate_id();
+$_SESSION['loginid']=session_id();
+$_SESSION['log']=session_id();
+		
+		 $password=$_POST['password'];
+	$key = pack("H*", "0123456789abcdef0123456789abcdef");
+$iv =  pack("H*", "abcdef9876543210abcdef9876543210");
+//Now we receive the encrypted from the post, we should decode it from base64,
+ $encrypted = base64_decode($password);
+$pass = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, $encrypted, MCRYPT_MODE_CBC, $iv);
+$passed = str_replace($_SESSION['time'],"",$pass);
+ $string = preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $passed);
+		
+  $uname =$_POST['user_name'];
+   $upass = $string;
+   error_log($upass);
+$security_code=$_POST["captcha"];
+
+if ($_SESSION['user_phrase']!=$security_code)
+		{ 	
+	
+			$error = " - Invalid Captcha...";	
+			
+ 
+}
+else
+{
+	$_SESSION['login_flag']='';
+ $login_tym=date("Y-m-d h:i:sa");
+	 //timestamp
+	 $cur_date=date("Y-m-d");				
+		
+		
+		//Test if it is a shared client
+if (!empty($_SERVER['HTTP_CLIENT_IP'])){
+  $ip=$_SERVER['HTTP_CLIENT_IP'];
+//Is it a proxy address
+}elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+  $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+}else{
+  $ip=$_SERVER['REMOTE_ADDR'];
+}	
+ if(empty($uname))
+   {
+      
+      $error = "Enter your Username !";
+   }
+ else if(!empty($uname) && $validator->chkbadchar($uname) == false)
+ {
+  $error= "Please enter valid Username";
+ }
+ else if(empty($upass))
+   {
+      
+      $error = "Enter your Password !";
+   }
+ else if(!empty($upass) && $validator->chkbadchar($upass) == false)
+ {
+  $error= "Please enter valid Password";
+ }
+else 
+{
+	
+
+ if($login->rti_login($uname,$upass))
+ {
+	
+	 $sucess_msg="Autherized Person";
+	 if($login->login_info($uname,$sucess_msg,$ip,$login_tym))
+	 {
+		 if($_SESSION['loginid']!=session_id())
+			{
+					$url="rti_login.php";
+					$delay = "0";
+					echo '<meta http-equiv="refresh" content="'.$delay.';url='.$url.'">';
+			}
+			else
+			{		 
+	         $login->redirect('login.php?CheckString='.$_SESSION['pageid']);
+			}
+	 }
+ }
+else
+ {
+	 
+  $sucess_msg="Unautherized Person";
+	  if($login->login_error($uname,$sucess_msg,$ip,$login_tym))
+	 {
+  $error = "Wrong Details!";
+	 }
+	 
+ }	
+ }
+
+ 
+}
+}
+
+
+?>
+<!DOCTYPE html>
+<html lang="en" dir="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MHC</title>
+    <link href="css/css.css" rel="stylesheet" />
+	  <link rel="stylesheet" href="css/bootstrap.min.css?v4.0.2">
+    <link href="css/lite-purple.min.css" rel="stylesheet">
+	<link href="css/sweetalert.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="auth-layout-wrap" style="background-image: url(images/2022_1$largeimg_1076192942.jpg)">
+    <div class="auth-content">
+        <div class="card o-hidden">
+            <div class="row">
+                <div class="col-md-6 text-center" style="background-size: cover;background-image: url(images/icon.png)">
+                    <div class="pl-3 auth-right">
+                        <!--<div class="auth-logo text-center mt-4"><img src="../../dist-assets/images/logo.png" alt=""></div>
+                        <div class="flex-grow-1"></div>
+                        <div class="w-100 mb-4"><a class="btn btn-outline-primary btn-block btn-icon-text btn-rounded" href="signin.html"><i class="i-Mail-with-At-Sign"></i> Sign in with Email</a><a class="btn btn-outline-google btn-block btn-icon-text btn-rounded"><i class="i-Google-Plus"></i> Sign in with Google</a><a class="btn btn-outline-facebook btn-block btn-icon-text btn-rounded"><i class="i-Facebook-2"></i> Sign in with Facebook</a></div>
+                        <div class="flex-grow-1"></div>-->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-4">
+                        <h1 class="mb-3 text-18">RTI USER LOGIN</h1>
+									  <?php
+            if(isset($error))
+            {
+                  ?>
+                   <div class="alert alert-card alert-danger" role="alert"><strong class="text-capitalize"> <?php echo $error; ?></strong> 
+                            <!--<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                        </div>
+                  <?php
+            }
+            else if(isset($_GET['joined']))
+            {
+                 ?>
+				 <div class="alert alert-success">
+                      <i class="glyphicon glyphicon-success-sign"></i> &nbsp;Your have Successfully registered and Your Login credentials Activated Shortly
+                  </div>
+				 <?php
+            }
+			 else if(isset($_GET['joined1']))
+            {
+                 ?>
+				<div class="alert alert-card alert-info ">
+                      <i class=""></i> &nbsp;Your Account Unlock Successfully 
+                  </div>
+				 <?php
+            }
+			
+			?>
+ 
+                        <form method="POST" action=""  enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="username">Mobile Number</label>
+                                <input class="form-control" id="user_name" name="user_name" type="text"onchange="CheckUsername()" maxlength="10"/>
+								
+                                            
+                                         
+                            </div>
+                            
+                             <div class="form-group">
+                                <label for="password">Password</label>
+                                <input class="form-control" id="T2" name="password" type="password">
+								<input type="hidden" name="rand" id="rand" value="<?php echo $rand = sha1(time());
+	$_SESSION['time'] = $rand; ?>" />
+                            </div>
+							 <div class="form-group">
+                                <label for="password">Capcha</label>
+                                <input class="form-control" id="Capcha" name='captcha' type="text" autocomplete="off" required>
+                            </div>
+							<div class="contact100-form-checkbox p-t-90">
+<div class="checkbox checkbox-circle checkbox-info peers ai-c">
+                                
+								<a id="captcha_reload" href="#" class="btn btn-danger "><i class="i-Arrow-Refresh"></i></a>&nbsp; 
+                                <span class="peer peer-greed"><img src="captcha.php" id="captcha_image"/></span>
+                            </div>
+                            </div>
+                           
+                            <input type='submit' name="login" id="login" value="Login In" class="btn btn-rounded btn-primary btn-block mt-2"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <script src="js/jquery-3.3.1.min.js"></script>
+	 <script src="js/jsrep.js"></script>
+	 <script src="js/cookies.min.js"></script>
+	
+    
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/perfect-scrollbar.min.js"></script>
+    <script src="js/script.min.js"></script>
+    <script src="js/sidebar.large.script.min.js"></script>
+    <script src="js/sidebar.script.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/echart.options.min.js"></script>
+    <script src="js/dashboard.v1.script.min.js"></script>
+	   <script src="js/form.validation.script.min.js"></script>
+	   <script src="js/datatables.min.js"></script>
+    <script src="js/datatables.script.min.js"></script>
+	<script src="js/sweetalert.js"></script>
+	
+	 <script src="js/jquery-ui.js"></script>
+	<script src="validationfiles/validate.js"></script> 
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/site.css">
+        
+	 <script type="text/javascript" src="js/jquery.richtext.js"></script>
+	  <script src="js/latest_multi_select.js"></script>
+	  <script src="js/pdf.min.js"></script>
+ <script>
+  	$(function()
+{
+	$('#captcha_reload').on('click',function(e)
+	{
+	  e.preventDefault();
+	  d = new Date();
+	  var src = $("img#captcha_image").attr("src");
+	  src = src.split(/[?#]/)[0];
+	  
+	  $("img#captcha_image").attr("src", src+'?'+d.getTime());
+	});
+	
+	$('#captcha_reload1').on('click',function(e)
+	{
+	  e.preventDefault();
+	  d = new Date();
+	  var src = $("img#captcha_image1").attr("src");
+	  src = src.split(/[?#]/)[0];
+	  
+	  $("img#captcha_image1").attr("src", src+'?'+d.getTime());
+	});
+	
+});
+
+function CheckUsername()
+	{
+		
+		var user_name=$('#user_name').val();
+		
+		//alert(user_name);
+		if(user_name!="")
+		{
+			
+			$.ajax({ 
+			method: "POST",
+			url: "get_data.php",
+			data: {
+				action:'rtusermobileno',
+				username:user_name
+				},
+				success: function(data)
+				{	
+				if(data == 1) {	
+				swal("Mobile Number Already Register", "Please Enter Your password and proceed to login", "info");
+					
+					
+				}
+				else if(data == 2)
+				{
+					
+					swal("Password Sent Your Mobile Number", "", "success");
+					//$('#password').focus();
+				}
+				else
+				{
+					swal(data, "", "error");
+				$('#user_name').val('');
+				$('#user_name').focus();	
+				}
+				
+							
+				} 
+			});
+		}
+		
+	}
+	$('#user_name').keypress(function (event) {
+				var keycode = event.which;
+			if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+				event.preventDefault();
+			}
+		});
+$(document).ready(function() {
+		
+			$('#T2').blur(function(){
+				
+		var ndatevar =  sha256($("#T2").val()+$("#rand").val());
+		//var pass =  sha256($("#T2").val());
+		//var ndatevar = (($('#T2').val()));
+		//alert(ndatevar);		
+		//var ndatevar1 = $('#T3').val();
+		
+		$('#T2').val(ndatevar);
+		
+		if (ndatevar!=''){ 
+			$('#limg').show();	
+		}	
+	});	
+	
+	$('#T3').blur(function(){
+				
+		var ndatevar =  sha256($("#T3").val()+$("#rand1").val());
+		//var pass =  sha256($("#T2").val());
+		//var ndatevar = (($('#T2').val()));
+		//alert(ndatevar);		
+		//var ndatevar1 = $('#T3').val();
+		
+		$('#T3').val(ndatevar);
+		
+		if (ndatevar!=''){ 
+			$('#limg').show();	
+		}	
+	});	
+	 });
+ </script>
+ </body>
+
+</html>

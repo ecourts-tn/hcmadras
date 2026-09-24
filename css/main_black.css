@@ -1,0 +1,35 @@
+.container-inner, .sidebar, .container-inner .main
+{
+	background-color:#000!important;
+	background:none;
+}
+.container-inner p,h2,h1,h3,td,th,header,label,.toggle-search
+{
+	color:#fff!important;
+	background-color:#000!important;
+}
+.container-inner ul li div a
+{
+	color:#fff!important;
+	background-color:#000!important;
+}
+.container-inner ul li a,a,.nav-wrap
+{
+	color:black!important;
+	background-color:#fff!important;
+}
+.site-title img
+{
+	background-color:#fff!important;
+}
+.social-container-wrap {
+	background-color:#000!important;
+}
+.widget_recent_comments ul li a{
+	color:#fff!important;
+	background-color:#000!important;
+}
+.group h3 span{
+	color:black!important;
+	background-color:#fff!important;
+}
